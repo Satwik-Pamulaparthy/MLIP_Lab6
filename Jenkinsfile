@@ -5,7 +5,7 @@ pipeline {
         stage('Build') {
             steps {
                 sh '''
-                echo 'Python is not compiled, but we could build wheels or packages here if needed.'
+                echo 'Python is not compiled, but we could build packages here if needed.'
                 '''
             }
         }
@@ -13,13 +13,12 @@ pipeline {
         stage('Test') {
             steps {
                 sh '''
-                echo 'Creating and activating virtual environment...'
+                echo 'Creating virtual environment and installing dependencies...'
                 python3 -m venv venv
                 . venv/bin/activate
-                echo 'Installing dependencies...'
                 pip install --upgrade pip
                 pip install pytest numpy pandas scikit-learn
-                echo 'Running tests with pytest...'
+                echo 'Running tests...'
                 pytest
                 '''
             }
@@ -27,8 +26,7 @@ pipeline {
 
         stage('Deploy') {
             steps {
-                echo 'In this step, we could deploy our project.'
-                echo 'In your lab, this can stay as a placeholder.'
+                echo 'In this step, we could deploy the project (optional for lab).'
             }
         }
     }
